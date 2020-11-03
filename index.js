@@ -35,6 +35,6 @@ app.use('/rescue', require('./routes/rescue'))
 app.use('/', require('./routes/index'))
 
 app.listen(
-  PORT,
+  process.env.PORT || 5000,
   console.log(`Server running  on port ${PORT}`)
 )
