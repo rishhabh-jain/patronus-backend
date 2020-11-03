@@ -12,7 +12,7 @@ app.use(express.json())
 
 // require('./config/passport')(passport)
 
-const PORT =  5000
+const PORT =  5000 || process.env.PORT ;
 
 
 // session middleware
