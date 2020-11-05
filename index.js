@@ -2,11 +2,13 @@ const mongoose = require("mongoose")
 const passport = require("passport")
 const express = require('express')
 const connectDB = require('./config/db')
+var cors = require('cors')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')(session)
 const app = express()
 connectDB()
 //body parser
+app.use(cors())
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
