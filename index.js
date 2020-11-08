@@ -45,6 +45,7 @@ const PORT =   process.env.PORT || 5000  ;
 // app.use(passport.session())
 
 app.use('/rescue', require('./routes/rescue'))
+app.use('/adopt', require('./routes/adopt'))
 // app.use('/auth', require('./routes/auth'))
 app.use('/', require('./routes/index'))
 
