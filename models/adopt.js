@@ -15,6 +15,10 @@ const AdoptSchema = new mongoose.Schema({
     default: 'Dog',
     enum: ['Dog', 'Cat'],
   },
+  breed : {
+      type : String , 
+      required : true 
+  },
   location :{
       type : String , 
       required: true 
