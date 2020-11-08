@@ -26,7 +26,7 @@ router.post('/createposts',async (req, res) => {
     //   
     //req.body.user = req.user.id
     await Adopt.create(req.body)
-      res.redirect('/rescue')
+      res.redirect('/adopt')
     } catch (err) {
       console.error(err)
     //   res.render('error/500')
