@@ -3,24 +3,19 @@ const Partners = require('../models/partners')
 
 const router = express.Router();
 
-router.get('/', (req,res)=>{
-    res.send("get request for partners")
+router.get('/getpartners' , async (req,res)=>{
+  try {
+      const stories = await Partners.find({})
+      //   .populate('user')
+        .sort({ createdAt: 'desc' })
+        // .lean()
+  
+      res.send(stories)
+    } catch (err) {
+      console.error(err)
+    //   res.render('error/500')
+    }
 })
-// get all posts route
-// router.get('/getposts' , async (req,res)=>{
-//     try {
-//         const stories = await Rescue.find({})
-//         //   .populate('user')
-//           .sort({ createdAt: 'desc' })
-//           // .lean()
-    
-//         res.send(stories)
-//       } catch (err) {
-//         console.error(err)
-//       //   res.render('error/500')
-//       }
-// })
-// posting the post route
 router.post('/postpartners',async (req, res) => {
     try {
     //   
