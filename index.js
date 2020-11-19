@@ -49,6 +49,7 @@ app.use('/adopt', require('./routes/adopt'))
 app.use('/partners' , require('./routes/partners'))
 // app.use('/auth', require('./routes/auth'))
 app.use('/', require('./routes/index'))
+app.use('/vet', require('./routes/vet'))
 
 app.listen(
   process.env.PORT || 5000,
