@@ -22,7 +22,7 @@ router.get('/getposts' , async (req,res)=>{
 })
 router.get('/getposts/:id', async (req, res) => {
   try {
-    let story = await Rescue.findById({user : req.params.id}).populate('user')
+    let story = await Rescue.find({user : req.params.id}).populate('user')
 
     if (!story) {
         res.send("no story found for this particular user")
@@ -53,5 +53,13 @@ router.post('/createposts',async (req, res) => {
     //   res.render('error/500')
     }
 })
-
+router.delete('/deletepost/:id' , async ( req, res)=> {
+  try{
+    await Rescue.deleteOne({_id : req.params.id})
+      res.send('great success')
+  }
+  catch(err){
+    console.log(err)
+  }
+})
 module.exports = router;
