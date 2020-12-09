@@ -23,10 +23,9 @@ const RescueSchema = new mongoose.Schema({
       type : String , 
       required : true 
   },
-  name : {
-      type : String ,
-      required : true,
-      max : 50 ,    
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
   },
   number : {
      type : Number , 

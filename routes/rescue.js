@@ -10,7 +10,7 @@ router.get('/', (req,res)=>{
 router.get('/getposts' , async (req,res)=>{
     try {
         const stories = await Rescue.find({})
-        //   .populate('user')
+          .populate('user')
           .sort({ createdAt: 'desc' })
           // .lean()
     
@@ -19,6 +19,27 @@ router.get('/getposts' , async (req,res)=>{
         console.error(err)
       //   res.render('error/500')
       }
+})
+router.get('/getposts/:id', async (req, res) => {
+  try {
+    let story = await Rescue.findById({user : req.params.id}).populate('user')
+
+    if (!story) {
+        res.send("no story found for this particular user")
+    }
+
+  //   if (story.user._id != req.user.id && story.status == 'private') {
+  //     res.render('error/404')
+  //   } else {
+  //     res.render('stories/show', {
+  //       story,
+  //     })
+  //   }
+      res.send(story)
+  } catch (err) {
+    console.error(err)
+  //   res.render('error/404')
+  }
 })
 // posting the post route
 router.post('/createposts',async (req, res) => {
