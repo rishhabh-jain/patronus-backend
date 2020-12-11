@@ -27,20 +27,15 @@ const AdoptSchema = new mongoose.Schema({
       type : String , 
       required : true 
   },
-  name : {
-      type : String ,
-      required : true,
-      max : 50 ,    
-  },
   number : {
      type : Number , 
      min : 10 ,
      required : true 
   },
-  // user: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: 'User',
-  // },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  },
   createdAt: {
     type: Date,
     default: Date.now,

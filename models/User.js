@@ -26,6 +26,9 @@ const UserSchema = new mongoose.Schema({
   },
   isAdmin : {
       type : Boolean
+  },
+  number : {
+    type : Number 
   }
 })
 
