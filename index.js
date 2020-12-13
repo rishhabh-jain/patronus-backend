@@ -57,6 +57,7 @@ app.use('/partners' , require('./routes/partners'))
 app.use('/', require('./routes/index'))
 app.use('/vet', require('./routes/vet'))
 app.use('/auth', require('./routes/auth'))
+app.use('/user', require('./routes/users'))
 
 
 app.listen(

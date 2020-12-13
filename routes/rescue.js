@@ -8,10 +8,19 @@ router.get('/', (req,res)=>{
 })
 // get all posts route
 router.get('/getposts' , async (req,res)=>{
+  const sort = {}
+  if (req.query.sortBy) {
+        const parts = req.query.sortBy.split(':')
+        sort[parts[0]] = parts[1] === 'desc' ? -1 : 1
+        console.log(sort)
+    }
+    const limit = parseInt(req.query.limit)
+    const skip = parseInt(req.query.skip)
     try {
         const stories = await Rescue.find({})
           .populate('user')
-          .sort({ createdAt: 'desc' })
+          .limit(limit).skip(skip)
+          .sort(sort)
           // .lean()
     
         res.send(stories)
@@ -21,8 +30,17 @@ router.get('/getposts' , async (req,res)=>{
       }
 })
 router.get('/getposts/:id', async (req, res) => {
+  const sort = {}
+  if (req.query.sortBy) {
+    const parts = req.query.sortBy.split(':')
+    sort[parts[0]] = parts[1] === 'desc' ? -1 : 1
+    console.log(sort)
+}
+const limit = parseInt(req.query.limit)
+const skip = parseInt(req.query.skip)
   try {
-    let story = await Rescue.find({user : req.params.id}).populate('user')
+    let story = await Rescue.find({user : req.params.id}).populate('user').limit(limit).skip(skip)
+    .sort(sort)
 
     if (!story) {
         res.send("no story found for this particular user")

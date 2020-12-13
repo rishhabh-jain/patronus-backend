@@ -8,23 +8,47 @@ router.get('/', (req,res)=>{
 })
 // get all posts route
 router.get('/getposts' , async (req,res)=>{
+  const sort = {}
+  const match = {}
+
+    // if (req.query.admin) {
+    //     // match.isAdmin = req.query.admin === 'true'
+    //     console.log(match)
+    // }
+
+    if (req.query.sortBy) {
+        const parts = req.query.sortBy.split(':')
+        sort[parts[0]] = parts[1] === 'desc' ? -1 : 1
+        console.log(sort)
+    }
+    const limit = parseInt(req.query.limit)
+    const skip = parseInt(req.query.skip)
     try {
         const stories = await Adopt.find({})
-          .populate('user')
-          .sort({ createdAt: 'desc' })
+          .populate('user').limit(limit).skip(skip)
+          .sort(sort)
           // .lean()
     
-        res.send(stories)
-      } catch (err) {
+        res.send(stories)}
+       catch (err) {
         console.error(err)
       //   res.render('error/500')
-      }
-})
+
+}})
 // getting the post by the particular id
 router.get('/getposts/:id', async (req, res) => {
+  const sort ={}
+  if (req.query.sortBy) {
+    const parts = req.query.sortBy.split(':')
+    sort[parts[0]] = parts[1] === 'desc' ? -1 : 1
+    console.log(sort)
+}
+const limit = parseInt(req.query.limit)
+const skip = parseInt(req.query.skip)
   try {
-    let story = await Adopt.find({user : req.params.id}).populate('user')
-
+    let story = await Adopt.find({user : req.params.id}).populate('user').limit(limit).skip(skip)
+    .sort(sort)
+    
     if (!story) {
         res.send("no story found for this particular user")
     }
