@@ -20,10 +20,10 @@ app.use((req, res, next) => {
   
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
   res.header('Access-Control-Allow-Credentials' , true)
-  if (req.method === 'OPTIONS') {
-      res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
-      return res.status(200).json({});
-  }
+  // if (req.method === 'OPTIONS') {
+  //     res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
+  //     return res.status(200).json({});
+  // }
   next();
 });
 
@@ -39,7 +39,7 @@ app.use(
     session({
       secret: 'keyboard cat',
       resave: false,
-      cookie : {secure : true },
+      cookie : {secure : false },
       saveUninitialized: false,
       store: new MongoStore({ mongooseConnection: mongoose.connection }),
     })
