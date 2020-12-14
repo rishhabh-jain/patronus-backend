@@ -8,26 +8,25 @@ const MongoStore = require('connect-mongo')(session)
 const app = express()
 connectDB()
 //body parser
-app.use(cors({
-  credentials: true,
-}));
+// app.use(cors());
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 app.use((req, res, next) => {
   const allowedOrigins = ['http://localhost:3000', 'http://patronus-72ce7.firebaseapp.com'];
   const origin = req.headers.origin;
   if (allowedOrigins.includes(origin)) {
-       res.setHeader('Access-Control-Allow-Origin', origin);
+       res.header('Access-Control-Allow-Origin', origin);
   }
   res.header(
     "Access-Control-Allow-Headers",
     "*"
   )
-  // res.header('Access-Control-Allow-Credentials' , 'true')
-  if (req.method === 'OPTIONS') {
-      res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
-      return res.status(200).json({});
-  }
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.header('Access-Control-Allow-Credentials' , true)
+  // if (req.method === 'OPTIONS') {
+  //     res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
+  //     return res.status(200).json({});
+  // }
   next();
 });
 
