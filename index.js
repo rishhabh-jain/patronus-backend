@@ -8,7 +8,9 @@ const MongoStore = require('connect-mongo')(session)
 const app = express()
 connectDB()
 //body parser
-app.use(cors())
+app.use(cors({
+  credentials: true,
+}));
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 app.use((req, res, next) => {
@@ -21,7 +23,7 @@ app.use((req, res, next) => {
     "Access-Control-Allow-Headers",
     "*"
   )
-  res.header('Access-Control-Allow-Credentials' , 'true')
+  // res.header('Access-Control-Allow-Credentials' , 'true')
   if (req.method === 'OPTIONS') {
       res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
       return res.status(200).json({});
