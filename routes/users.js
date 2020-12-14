@@ -19,4 +19,7 @@ router.get('/getusers' , async (req,res)=>{
       //   res.render('error/500')
       }
   })
+  router.get('/' , (req , res ) =>{
+    res.send(req.user)
+  } )
 module.exports = router;

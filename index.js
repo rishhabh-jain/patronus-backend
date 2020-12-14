@@ -8,7 +8,7 @@ const MongoStore = require('connect-mongo')(session)
 const app = express()
 connectDB()
 //body parser
-// app.use(cors());
+app.use(cors());
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 app.use((req, res, next) => {
@@ -17,16 +17,13 @@ app.use((req, res, next) => {
   if (allowedOrigins.includes(origin)) {
        res.header('Access-Control-Allow-Origin', origin);
   }
-  res.header(
-    "Access-Control-Allow-Headers",
-    "*"
-  )
+  
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
   res.header('Access-Control-Allow-Credentials' , true)
-  // if (req.method === 'OPTIONS') {
-  //     res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
-  //     return res.status(200).json({});
-  // }
+  if (req.method === 'OPTIONS') {
+      res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
+      return res.status(200).json({});
+  }
   next();
 });
 
@@ -42,6 +39,7 @@ app.use(
     session({
       secret: 'keyboard cat',
       resave: false,
+      cookie : {secure : true },
       saveUninitialized: false,
       store: new MongoStore({ mongooseConnection: mongoose.connection }),
     })
